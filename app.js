@@ -1,0 +1,27 @@
+// importo express
+const express = require("express");
+
+// definisco app che contiene express
+const app = express();
+
+// definisco la porta
+const port = 3000;
+
+//importo il file router dei post
+const postRouter = require("./routers/posts");
+
+//inserisco il middleware per i file statici
+app.use(express.static("public"));
+
+// definisco la rotta base
+app.get("/", (req, res) => {
+  res.send("Benvenuti nel mio blog");
+});
+
+// definisco la rotta posts
+app.use("/posts", postRouter);
+
+// server in ascolto sulla porta 3000
+app.listen(port, () => {
+  console.log(`Server in ascolto sulla porta ${port}`);
+});
