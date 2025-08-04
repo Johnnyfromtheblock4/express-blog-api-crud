@@ -45,6 +45,7 @@ const destroy = (req, res) => {
   res.sendStatus(204);
 };
 
+// esporto le rotte
 module.exports = {
   index,
   show,

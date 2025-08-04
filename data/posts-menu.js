@@ -44,4 +44,5 @@ const posts = [
   },
 ];
 
+// esporto il menu
 module.exports = posts;
