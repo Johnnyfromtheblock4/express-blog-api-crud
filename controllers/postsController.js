@@ -1,8 +1,9 @@
-
+// importo l'array dei posts
+const posts = require("../data/posts-menu");
 
 // INDEX
 const index = (req, res) => {
-  res.send(posts);
+  res.json(posts);
 };
 
 // SHOW
@@ -11,7 +12,7 @@ const show = (req, res) => {
 
   const post = posts.find((item) => item.id === id);
 
-  res.send(post);
+  res.json(post);
 };
 
 // STORE
