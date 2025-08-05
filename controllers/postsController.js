@@ -91,7 +91,21 @@ const update = (req, res) => {
 const modify = (req, res) => {
   const id = parseInt(req.params.id);
 
-  res.send(`Modifica parziale del post con id ${req.params.id}`);
+  // recupero il post dell'array
+  const post = posts.find((item) => item.id === id);
+
+  // controllo se il post esiste
+  if (post === undefined) {
+    return res.status(404).json({
+      error: "Not Found",
+      message: "Pizza non trovata",
+    });
+  }
+
+  // modifico i tags
+  post.tags = req.body.tags;
+
+  res.json(post);
 };
 
 // DESTROY
