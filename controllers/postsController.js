@@ -40,7 +40,26 @@ const show = (req, res) => {
 
 // STORE
 const store = (req, res) => {
-  res.send("Creazione di un nuovo post");
+  // genero un nuovo id per la nuova pizza
+  const newId = posts[posts.length - 1].id + 1; // prendo l'id dell'ultimo elemento + 1 per crearne uno nuovo
+
+  // destrutturo il body della richiesta
+  const { title, content, image, tags } = req.body;
+
+  // creo un nuovo oggetto post
+  const newPost = {
+    id: newId,
+    title: title,
+    content: content,
+    image: image,
+    tags: tags,
+  };
+
+  // pusho l'oggetto appena creato nell'array menu
+  posts.push(newPost);
+
+  // restituisco stato 201 (created), per far capire che l'operazione è andata a buon fine
+  res.status(201).json(newPost);
 };
 
 // UPDATE
@@ -61,22 +80,22 @@ const modify = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
 
-  //recupero il post
+  // recupero il post
   const post = posts.find((item) => item.id === id);
 
-  //cancello il post dall'array
-  posts.splice(posts.indexOf(post), 1);
-
-  //restituisco lo status 204 per aver cancellato con successo il post dall'array
-  res.sendStatus(204);
-
-  //verifico se post non esiste
+  // verifico se post non esiste
   if (!post) {
     return res.status(404).json({
       error: "404 Pagino non trovata",
       message: "Il post non è presente",
     });
   }
+
+  // cancello il post dall'array
+  posts.splice(posts.indexOf(post), 1);
+
+  // restituisco lo status 204 per aver cancellato con successo il post dall'array
+  res.sendStatus(204);
 };
 
 // esporto le rotte

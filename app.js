@@ -13,6 +13,9 @@ const postRouter = require("./routers/postsRouter");
 //inserisco il middleware per i file statici
 app.use(express.static("public"));
 
+// utilizzo il body parser json per recuperare le informazioni del body di una richiesta
+app.use(express.json());
+
 // definisco la rotta base
 app.get("/", (req, res) => {
   res.send("Benvenuti nel mio blog");
