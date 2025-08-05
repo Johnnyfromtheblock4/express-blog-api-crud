@@ -64,9 +64,27 @@ const store = (req, res) => {
 
 // UPDATE
 const update = (req, res) => {
+  // recupero l'id desiderato
   const id = parseInt(req.params.id);
 
-  res.send(`Modifica totale del post con id ${id}`);
+  // recupero il post da modificare
+  const post = posts.find((item) => item.id === id);
+
+  // controllo se il post esiste
+  if (post === undefined) {
+    return res.status(404).json({
+      error: "Not Found",
+      message: "Pizza non trovata",
+    });
+  }
+
+  // applico le modifiche
+  post.title = req.body.title;
+  post.content = req.body.content;
+  post.image = req.body.image;
+  post.tags = req.body.tags;
+
+  res.json(post);
 };
 
 // MODIFY
