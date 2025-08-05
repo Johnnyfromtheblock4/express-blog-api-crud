@@ -3,14 +3,37 @@ const posts = require("../data/posts");
 
 // INDEX
 const index = (req, res) => {
-  res.json(posts);
+  //recuperiamo i parametri passati da query string
+  const tag = req.query.tag;
+
+  // definiamo un array da restituire
+  let filteredPosts = posts;
+
+  // controlliamo il valore di title: se diverso da undefined eseguo il filtraggio
+  if (tag) {
+    filteredPosts = posts.filter((item) => {
+      const lowerTags = item.tags.map((tag) => tag.toLowerCase());
+
+      return lowerTags.includes(tag.toLowerCase());
+    });
+  }
+  res.json(filteredPosts);
 };
 
 // SHOW
 const show = (req, res) => {
   const id = parseInt(req.params.id);
 
+  //recupero il post con l'id passato come parametro
   const post = posts.find((item) => item.id === id);
+
+  //verifico se post non esiste
+  if (!post) {
+    return res.status(404).json({
+      error: "404 Pagino non trovata",
+      message: "Il post non è presente",
+    });
+  }
 
   res.json(post);
 };
@@ -46,6 +69,14 @@ const destroy = (req, res) => {
 
   //restituisco lo status 204 per aver cancellato con successo il post dall'array
   res.sendStatus(204);
+
+  //verifico se post non esiste
+  if (!post) {
+    return res.status(404).json({
+      error: "404 Pagino non trovata",
+      message: "Il post non è presente",
+    });
+  }
 };
 
 // esporto le rotte
