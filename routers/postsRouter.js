@@ -4,10 +4,10 @@ const express = require("express");
 // definisco l'oggetto router
 const router = express.Router();
 
-// importo il controller per i drink
+// importo il controller per i post
 const postController = require("../controllers/postsController");
 
-// definisco le rotte per i drink
+// definisco le rotte per i post
 // index
 router.get("/", postController.index);
 

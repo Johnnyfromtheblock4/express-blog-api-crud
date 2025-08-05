@@ -1,5 +1,5 @@
 // importo l'array dei posts
-const posts = require("../data/posts-menu");
+const posts = require("../data/posts");
 
 // INDEX
 const index = (req, res) => {
@@ -38,10 +38,13 @@ const modify = (req, res) => {
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
 
+  //recupero il post
   const post = posts.find((item) => item.id === id);
 
+  //cancello il post dall'array
   posts.splice(posts.indexOf(post), 1);
 
+  //restituisco lo status 204 per aver cancellato con successo il post dall'array
   res.sendStatus(204);
 };
 
