@@ -9,6 +9,14 @@ const index = (req, res) => {
   // definiamo un array da restituire
   let filteredPosts = posts;
 
+  //verifico se post non esiste
+  if (filteredPosts === undefined) {
+    return res.status(404).json({
+      error: "404 Pagino non trovata",
+      message: "Il post non è presente",
+    });
+  }
+
   // controlliamo il valore di title: se diverso da undefined eseguo il filtraggio
   if (tag) {
     filteredPosts = posts.filter((item) => {
